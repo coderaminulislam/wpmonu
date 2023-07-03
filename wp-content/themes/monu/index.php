@@ -1,6 +1,6 @@
 <?php get_header() ?>
 <!-- slider start -->
-<div class="slider__area">
+<div class="slider__area" id="Home">
     <div class="slider__active owl-carousel owl-theme">
         <?php 
         $args=array(

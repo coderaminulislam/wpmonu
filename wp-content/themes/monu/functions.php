@@ -33,3 +33,63 @@ require_once MONU_THEME_INC .'/acf-page-options.php';
 require_once MONU_THEME_INC .'/monu-widgets.php';
 
 
+
+//widget
+
+
+Class CA_Latest_Posts_Footer_Widget extends WP_Widget{
+
+	public function __construct(){
+		parent::__construct('ca-latest-posts-footer', 'Monu Footer Posts', array(
+			'description'	=> 'Latest Post Widget by Coderaminul'
+		));
+	}
+
+
+	public function widget($args, $instance){
+			extract($args);
+			extract($instance);
+
+	 	echo $before_widget; 
+	 		if($instance['title']):
+     		echo $before_title; ?> 
+     			<?php echo apply_filters( 'widget_title', $instance['title'] ); ?>
+     		<?php echo $after_title; ?>
+     	<?php endif; ?>
+
+
+	     	<div class="footer__widget">
+			
+				    <?php 
+					$q = new WP_Query( array(
+					    'post_type'     => 'post',
+					    'posts_per_page'=> ($instance['count']) ? $instance['count'] : '3',
+					    'order'			=> ($instance['posts_order']) ? $instance['posts_order'] : 'DESC',
+					    'orderby' => 'comment_count'
+					));
+
+					if( $q->have_posts() ):
+					while( $q->have_posts() ):$q->the_post();
+					?>
+
+		              <article class="fix">
+		                 <div class="post__thumb f-left">
+		                    <a href="<?php the_permalink(); ?>"><?php the_post_thumbnail('thumbnail'); ?></a>
+		                 </div>
+		                  <div class="post__content fix">
+                            <h5><a href="<?php the_permalink(); ?>"><?php print wp_trim_words(get_the_title(), 6, ''); ?></a></h5>
+		                    <p><?php the_time('F j Y'); ?></p>
+		                  </div>
+                       </article>
+
+						<?php endwhile;            
+					 endif; ?> 
+			   
+		   </div> 
+
+
+		<?php echo $after_widget; ?>
+
+		<?php
+	}
+}
