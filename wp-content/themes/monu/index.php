@@ -1,6 +1,6 @@
 <?php get_header() ?>
 <!-- slider start -->
-<div class="slider__area" id="Home">
+<div class="slider__area" id="home">
     <div class="slider__active owl-carousel owl-theme">
         <?php 
         $args=array(
@@ -160,12 +160,15 @@
 
         <?php
         $services_repeater=get_field('services_repeater', 'options');
-        if($services_repeater): foreach($services_repeater as $services) : ?>
+        
+        if(!empty($services_repeater)): foreach($services_repeater as $services) : ?>
 
             <div class="col-xl-3 col-lg-6 col-md-6 mb-20">
                 <div class="single__services__item">
                     <div class="services__icon">
-                        <i class="<?php echo esc_attr($services['select_icon']); ?>"></i>
+           
+                       <img src="<?php echo esc_url($services['services_img']['url'])?>">
+               
                         <h4><?php echo esc_html__( $services['service_title'], 'monu' )?></h4>
                         <p><?php echo esc_html__( $services['short_description'], 'monu' )?></p>
                         <a href="<?php echo esc_url($services['services_btn_link']); ?>" class="services__btn"> <?php echo esc_html__( 'View Services', 'monu' ); ?></a>

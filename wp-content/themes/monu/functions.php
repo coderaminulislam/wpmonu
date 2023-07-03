@@ -32,7 +32,11 @@ require_once MONU_THEME_INC .'/class-wp-bootstrap-navwalker.php';
 require_once MONU_THEME_INC .'/acf-page-options.php';
 require_once MONU_THEME_INC .'/monu-widgets.php';
 
-
+//excerpt length
+function mytheme_custom_excerpt_length( $length ) {
+    return 20;
+}
+add_filter( 'excerpt_length', 'mytheme_custom_excerpt_length', 999 );
 
 //widget
 
@@ -92,4 +96,35 @@ Class CA_Latest_Posts_Footer_Widget extends WP_Widget{
 
 		<?php
 	}
+    public function form($instance){
+		$title = ! empty( $instance['title'] ) ? $instance['title'] : '';
+		$count = ! empty( $instance['count'] ) ? $instance['count'] : esc_html__( '3', 'stcore' );
+		$posts_order = ! empty( $instance['posts_order'] ) ? $instance['posts_order'] : esc_html__( 'DESC', 'stcore' );
+		$choose_style = ! empty( $instance['choose_style'] ) ? $instance['choose_style'] : esc_html__( 'style_1', 'stcore' );
+	?>	
+		<p>
+			<label for="<?php echo $this->get_field_id('title'); ?>">Title</label>
+			<input type="text" name="<?php echo $this->get_field_name('title'); ?>" id="<?php echo $this->get_field_id('title'); ?>" value="<?php echo esc_attr( $title ); ?>" class="widefat">
+		</p>
+
+		<p>
+			<label for="<?php echo $this->get_field_id('count'); ?>">How many posts you want to show ?</label>
+			<input type="number" name="<?php echo $this->get_field_name('count'); ?>" id="<?php echo $this->get_field_id('count'); ?>" value="<?php echo esc_attr( $count ); ?>" class="widefat">
+		</p>
+
+		<p>
+			<label for="<?php echo $this->get_field_id('posts_order'); ?>">Posts Order</label>
+			<select name="<?php echo $this->get_field_name('posts_order'); ?>" id="<?php echo $this->get_field_id('posts_order'); ?>" class="widefat">
+				<option value="" disabled="disabled">Select Post Order</option>
+				<option value="ASC" <?php if($posts_order === 'ASC'){ echo 'selected="selected"'; } ?>>ASC</option>
+				<option value="DESC" <?php if($posts_order === 'DESC'){ echo 'selected="selected"'; } ?>>DESC</option>
+			</select>
+		</p>
+
+	<?php }
+
+
 }
+add_action('widgets_init', function(){
+	register_widget('CA_Latest_Posts_Footer_Widget');
+});

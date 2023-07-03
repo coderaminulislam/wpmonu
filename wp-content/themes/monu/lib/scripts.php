@@ -15,9 +15,9 @@ function MONU_scripts() {
     wp_enqueue_style( 'owl-carousel', MONU_THEME_CSS_DIR . 'owl.carousel.min.css', [] );
     wp_enqueue_style( 'owl-default', MONU_THEME_CSS_DIR . 'owl.theme.default.min.css', [] ); 
     wp_enqueue_style( 'default', MONU_THEME_CSS_DIR . 'default.css', [] );
-    wp_enqueue_style( 'all', MONU_THEME_CSS_DIR . 'all.min.css', [] );
-    wp_enqueue_style( 'font-awesome', MONU_THEME_CSS_DIR . 'fontawesome.min.css', [] );
     wp_enqueue_style( 'themify', MONU_THEME_CSS_DIR . 'themify-icons.css', [] );
+    wp_enqueue_style( 'all', MONU_THEME_CSS_DIR . 'all.css', [] );
+    wp_enqueue_style( 'font-awesome', MONU_THEME_CSS_DIR . 'font-awesome-pro.css', [] );
     wp_enqueue_style( 'MONU-core', MONU_THEME_CSS_DIR . 'monu-core.css', [], time() );
     wp_enqueue_style( 'MONU-style', get_stylesheet_uri() );
 
